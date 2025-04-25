@@ -1,6 +1,6 @@
 # Welcome
 
-We are focused on AI applications, particularly novel approaches in the use of AI in customer facing venues. We'll be adding content and will share practical tools and utilities we build from time to time. You can visit us at https://designedprogress.ca
+We are focused on AI applications, particularly new or innovaticve approaches to the use of AI in customer facing applications. We'll be adding content and will share practical tools and utilities we build from time to time. You can visit us at https://designedprogress.ca, feel free to connect.
 
 # How we built our site
 
