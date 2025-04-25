@@ -3,86 +3,163 @@
         <h1><span class="text-transparent bg-gradient-to-r from-[#c726c9] to-primary bg-clip-text">Embedded,</span> Not Just Engaged</h1>
     </div>
     <p class="max-w-screen-sm mx-auto text-xl text-muted-foreground">More than advice. We join your team to help imagine, design, and build AI enabled customer experiences with the latest tools.</p>
-    <div class="mt-6">
-        &nbsp;
-    </div>
 </div>
-<div class="text-left space-y-8 py-16">
-    <div class="max-w-screen-md mx-auto">
-<h1 id="welcome">Welcome</h1>
-<p>We are focused on AI applications, particularly new or innovaticve approaches to the use of AI in customer facing applications. We&#39;ll be adding content and will share practical tools and utilities we build from time to time. You can visit us at <a href="https://designedprogress.ca">https://designedprogress.ca</a>, feel free to connect.</p>
-<h1 id="how-we-built-our-site">How we built our site</h1>
-<p> We chose Svelte 5, a UI framework that preprocesses code at build time and supports strict TypeScript. Styling was handled using Tailwind CSS for rapid styling. shadcn-svelte components make up most of the page elements, with a few custom components to support the Assistant, its state management and rate limiting. We built with development tools like VS Code, Continue.Dev, Claude-Code, and GitHub to speed our workflow.</p>
-<p>The AI assistant uses Vercel&#39;s AI SDK, OpenAI client and OpenAI text embeddings. We created a Retrieval-Augmented Generation (RAG) system that provides our Assistant with a curated knowledgebase of markdown files that we think are important to the progress of the field. The language model dynamically decides when and how to use this knowledge, requiring effective prompting and a bit of agentic leeway. The RAG system stores text chunks and vectors in a serverless Pinecone.io index, with metadata and links managed via YAML frontmatter in the markdown files. This setup ensures proper attribution and supports rule-based decisions based on content attributes during inference.</p>
-<p>We also have a number of LLM server tools implemented for the LLM to call at inference time. These include one for knowledge base searches, one to collect customer contact info and messages via CRM and another to query the current status of the users rate limit. We have a number of other interesting tools in the works and we will roll those out over time.</p>
-<p>We plan to also explore emerging technologies like MCP integration with headless commerce platforms, semantic routing, multimodal semantic tools and voice-based agent interaction. These experiments will be showcased through the &quot;Ask Us&quot; Assistant and in our <a href="https://designedprogress.ca/lab">Lab</a> and when we can we&#39;ll share code here.</p>
-<h2 id="website-technology-overview">Website Technology Overview</h2>
-<p>Below is an overview of the technologies and approaches used.</p>
-<h2 id="front-end">Front End</h2>
-<p>The front end is built with modern tools for a performant and maintainable user interface, leveraging the Svelte 5 framework, TypeScript, and Tailwind CSS for rapid styling.</p>
-<ul>
-<li><strong><a href="https://svelte.dev/">Svelte 5 (Runes-compliant)</a></strong>: A lightweight, reactive framework that compiles to efficient vanilla JavaScript, using Runes for improved state management.</li>
-<li><strong><a href="https://svelte.dev/docs/kit/introduction">SvelteKit</a></strong>: Svelte’s full-stack framework for routing, server-side rendering, and static site generation.</li>
-<li><strong><a href="https://tailwindcss.com/">Tailwind CSS</a></strong>: A utility-first CSS framework for rapid, responsive styling.</li>
-<li><strong><a href="https://www.typescriptlang.org/">TypeScript</a></strong>: Adds strict typing to JavaScript for better code reliability and developer experience.</li>
-<li><strong><a href="https://next.shadcn-svelte.com/">shadcn-svelte</a></strong>: A component library for accessible, customizable UI elements.</li>
-<li><strong><a href="https://github.com/Zxce3/shadcn-sveltekit-landing-page">shadcn-sveltekit-landing-page</a></strong>: We adapted this Svelte starter template to Svelte 5 and Runes, using Claude Code for assistance, then customized it with our styling, tools, and components.</li>
-</ul>
-<h2 id="ai-llm-tools">AI &amp; LLM Tools</h2>
-<p>Our AI implementation, centered on a Retrieval-Augmented Generation (RAG) system, is an experimental effort to explore large language models (LLMs), embeddings, and vector stores. The “Ask Us” Assistant is powered by this system, and we plan to experiment with visual search and customer-driven “taste” analysis in the future.</p>
-<ul>
-<li><strong><a href="https://sdk.vercel.ai/">Vercel AI SDK</a></strong>: Acts as middleware to abstract model-specific APIs, though some model-specific adjustments are needed. It simplifies integration with LLMs.</li>
-<li><strong><a href="https://sdk.vercel.ai/docs/ai-sdk-ui/chatbot-tool-usage">Vercel AI SDK Tools</a></strong>: Enables server-side tools to be called by the LLM, streamlining functionality.</li>
-<li><strong><a href="https://platform.openai.com/docs/models/gpt-4o-mini">OpenAI GPT-4.1-mini</a></strong>: The primary LLM for the “Ask Us” Assistant, chosen for its balance of cost and performance.</li>
-<li><strong><a href="https://www.pinecone.io/">Pinecone.io</a></strong>: A serverless vector database that stores semantic vectors for our knowledgebase.</li>
-<li><strong><a href="https://platform.openai.com/docs/guides/embeddings#embedding-models">OpenAI text-embedding-3-small</a></strong>: Generates 1536-dimensional dense embeddings for semantic search.</li>
-<li><strong><a href="https://blog.langchain.dev/typescript-support/">LangChain</a></strong>: Assists with chunking and preprocessing the knowledgebase, stored as markdown (.md) files with YAML frontmatter for metadata and sourcing.</li>
-<li><strong>Knowledgebase Ingestion</strong>: TypeScript scripts leverage NPM to chunk content and send it to Pinecone’s JSON API for indexing.</li>
-<li><strong><a href="https://obsidian.md/">Obsidian</a></strong>: Used to manage and edit the knowledgebase’s markdown files, tagged with YAML frontmatter. We’re exploring AI-driven automation for sourcing, classifying, and tagging content.</li>
-</ul>
-<h2 id="prompting">Prompting</h2>
-<p>Effective prompting is critical for our LLM’s performance, especially with the structured knowledgebase.</p>
-<ul>
-<li><strong><a href="https://platform.openai.com/docs/models/gpt-4.5-preview">OpenAI GPT-4.5 Preview</a></strong>: Helps optimize prompts for GPT-4.1-mini, though experimentation is key. We store prompts in source control for versioning.</li>
-<li><strong>Prompt Design</strong>: Prompts are declarative and rely on the knowledgebase’s structured metadata to guide the LLM’s responses accurately.</li>
-</ul>
-<h2 id="development-tools">Development Tools</h2>
-<p>We use a modern development stack, heavily augmented by AI coding agents to accelerate development.</p>
-<ul>
-<li><strong>VS Code</strong>: Our primary IDE for coding and debugging.</li>
-<li><strong><a href="https://www.continue.dev/">Continue.Dev</a></strong>: Provides in-IDE AI assistance and chat capabilities.</li>
-<li><strong><a href="https://www.anthropic.com/claude/sonnet">Claude Sonnet 3.7</a></strong>: Primary AI for code generation, with support from xAI’s Grok 3 and Google Gemini 2.5.</li>
-<li><strong><a href="https://mistral.ai/news/codestral">Mistral Codestral</a></strong>: Used for inline code suggestions and fill-in-the-middle (FIM) tasks in the IDE.</li>
-<li><strong>GitHub</strong>: Hosts our code repositories and supports version control.</li>
-</ul>
-<h2 id="deployment">Deployment</h2>
-<p>The site is deployed on a flexible infrastructure, with SvelteKit’s build time adapter enabling compatibility with multiple platforms. In our case we are using adapter-node and the infrastructure stack is:</p>
-<ul>
-<li><strong>AWS</strong>: Hosts the production environment.</li>
-<li><strong>Ubuntu 24.04</strong>: The server operating system.</li>
-<li><strong>Node.js 22.14</strong>: Powers the backend (exploring Deno as an alternative).</li>
-<li><strong>PM2</strong>: Manages Node.js processes for reliability.</li>
-<li><strong>Nginx</strong>: Acts as a reverse proxy for routing and load balancing.</li>
-<li><strong>Cloudflare</strong>: Provides DNS, CDN, and security services.</li>
-<li><strong>Deployment Flexibility</strong>: SvelteKit’s auto-adapter supports easy deployment to Vercel, Netlify, or Cloudflare Workers.</li>
-</ul>
-<h2 id="technologies-under-exploration-review">Technologies Under Exploration / Review</h2>
-<p>We’re actively experimenting with additional tools and approaches to enhance our AI and development capabilities.</p>
-<ul>
-<li><strong><a href="https://openwebui.com/">OpenWebUI</a></strong>: A potential LLM proxy and playground for testing models and prompts.</li>
-<li><strong><a href="https://openrouter.ai/">OpenRouter</a></strong>: Simplifies access to multiple LLMs and enables inference-time abstraction.</li>
-<li><strong><a href="https://www.datastax.com/">DataStax</a></strong>: For advanced vector indexing and search capabilities.</li>
-<li><strong><a href="https://postgresml.org/docs/open-source/pgml/guides/vector-database">PostgresML</a></strong>: Exploring for vector database integration.</li>
-<li><strong><a href="https://ollama.com/">Ollama</a></strong>: For local model hosting, text-to-speech (TTS), speech-to-text (STT), and integration with tools like LangChain and PyTorch.</li>
-<li><strong><a href="https://deepgram.com/">Deepgram</a></strong>: For speech-to-text (STT) capabilities.</li>
-<li><strong><a href="https://azure.microsoft.com/en-us/products/ai-services/ai-speech">Azure AI Speech</a></strong>: For text-to-speech (TTS) functionality.</li>
-<li><strong><a href="https://cohere.com/embed">Cohere Embeddings</a></strong>: Additional embedding options for semantic search.</li>
-<li><strong><a href="https://cohere.com/rerank">Cohere Reranking</a></strong>: For improving search result relevance.</li>
-<li><strong><a href="https://github.com/microsoft/markitdown">Microsoft Markitdown</a></strong>: Preprocesses source documents into formatted markdown for the knowledgebase.</li>
-<li><strong><a href="https://www.letta.com/">Letta</a></strong>: Stateful, context length managed agents. Essentially agents with persistent memory, interagent communication and agent context &quot;memory management&quot;</li>
-<li><strong><a href="https://www.pipecat.ai/">Pipecat</a></strong>: Open source framework for voice and multimodal conversational AI.</li>
-</ul>
-
-    </div>
-    
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <h1 id="welcome" class="text-4xl font-bold text-foreground mt-8 mb-4 leading-tight">Welcome</h1>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    We are focused on AI applications, particularly new or innovative approaches to the use of AI in customer-facing applications. We'll be adding content and will share practical tools and utilities we build from time to time. You can visit us at <a href="https://designedprogress.ca" class="text-primary hover:underline transition-colors">https://designedprogress.ca</a>, feel free to connect.
+  </p>
+  <h1 id="how-we-built-our-site" class="text-4xl font-bold text-foreground mt-8 mb-4 leading-tight">How we built our site</h1>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    We chose Svelte 5, a UI framework that preprocesses code at build time and supports strict TypeScript. Styling was handled using Tailwind CSS for rapid styling. shadcn-svelte components make up most of the page elements, with a few custom components to support the Assistant, its state management, and rate limiting. We built with development tools like VS Code, Continue.Dev, Claude-Code, and GitHub to speed our workflow.
+  </p>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    The AI assistant uses Vercel's AI SDK, OpenAI client, and OpenAI text embeddings. We created a Retrieval-Augmented Generation (RAG) system that provides our Assistant with a curated knowledgebase of markdown files that we think are important to the progress of the field. The language model dynamically decides when and how to use this knowledge, requiring effective prompting and a bit of agentic leeway. The RAG system stores text chunks and vectors in a serverless Pinecone.io index, with metadata and links managed via YAML frontmatter in the markdown files. This setup ensures proper attribution and supports rule-based decisions based on content attributes during inference.
+  </p>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    We also have a number of LLM server tools implemented for the LLM to call at inference time. These include one for knowledge base searches, one to collect customer contact info and messages via CRM, and another to query the current status of the users' rate limit. We have a number of other interesting tools in the works, and we will roll those out over time.
+  </p>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    We plan to also explore emerging technologies like MCP integration with headless commerce platforms, semantic routing, multimodal semantic tools, and voice-based agent interaction. These experiments will be showcased through the "Ask Us" Assistant and in our <a href="https://designedprogress.ca/lab" class="text-primary hover:underline transition-colors">Lab</a>, and when we can, we'll share code here.
+  </p>
+  <h2 id="website-technology-overview" class="text-2xl font-semibold text-foreground mt-6 mb-3 leading-snug">Website Technology Overview</h2>
+  <p class="text-base text-foreground mb-4 leading-relaxed">Below is an overview of the technologies and approaches used.</p>
+  <h2 id="front-end" class="text-2xl font-semibold text-foreground mt-6 mb-3 leading-snug">Front End</h2>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    The front end is built with modern tools for a performant and maintainable user interface, leveraging the Svelte 5 framework, TypeScript, and Tailwind CSS for rapid styling.
+  </p>
+  <ul class="list-disc pl-6 mb-4">
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://svelte.dev/" class="text-primary hover:underline transition-colors">Svelte 5 (Runes-compliant)</a></strong>: A lightweight, reactive framework that compiles to efficient vanilla JavaScript, using Runes for improved state management.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://svelte.dev/docs/kit/introduction" class="text-primary hover:underline transition-colors">SvelteKit</a></strong>: Svelte’s full-stack framework for routing, server-side rendering, and static site generation.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://tailwindcss.com/" class="text-primary hover:underline transition-colors">Tailwind CSS</a></strong>: A utility-first CSS framework for rapid, responsive styling.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://www.typescriptlang.org/" class="text-primary hover:underline transition-colors">TypeScript</a></strong>: Adds strict typing to JavaScript for better code reliability and developer experience.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://next.shadcn-svelte.com/" class="text-primary hover:underline transition-colors">shadcn-svelte</a></strong>: A component library for accessible, customizable UI elements.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://github.com/Zxce3/shadcn-sveltekit-landing-page" class="text-primary hover:underline transition-colors">shadcn-sveltekit-landing-page</a></strong>: We adapted this Svelte starter template to Svelte 5 and Runes, using Claude Code for assistance, then customized it with our styling, tools, and components.
+    </li>
+  </ul>
+  <h2 id="ai-llm-tools" class="text-2xl font-semibold text-foreground mt-6 mb-3 leading-snug">AI & LLM Tools</h2>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    Our AI implementation, centered on a Retrieval-Augmented Generation (RAG) system, is an experimental effort to explore large language models (LLMs), embeddings, and vector stores. The “Ask Us” Assistant is powered by this system, and we plan to experiment with visual search and customer-driven “taste” analysis in the future.
+  </p>
+  <ul class="list-disc pl-6 mb-4">
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://sdk.vercel.ai/" class="text-primary hover:underline transition-colors">Vercel AI SDK</a></strong>: Acts as middleware to abstract model-specific APIs, though some model-specific adjustments are needed. It simplifies integration with LLMs.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://sdk.vercel.ai/docs/ai-sdk-ui/chatbot-tool-usage" class="text-primary hover:underline transition-colors">Vercel AI SDK Tools</a></strong>: Enables server-side tools to be called by the LLM, streamlining functionality.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://platform.openai.com/docs/models/gpt-4o-mini" class="text-primary hover:underline transition-colors">OpenAI GPT-4.1-mini</a></strong>: The primary LLM for the “Ask Us” Assistant, chosen for its balance of cost and performance.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://www.pinecone.io/" class="text-primary hover:underline transition-colors">Pinecone.io</a></strong>: A serverless vector database that stores semantic vectors for our knowledgebase.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://platform.openai.com/docs/guides/embeddings#embedding-models" class="text-primary hover:underline transition-colors">OpenAI text-embedding-3-small</a></strong>: Generates 1536-dimensional dense embeddings for semantic search.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://blog.langchain.dev/typescript-support/" class="text-primary hover:underline transition-colors">LangChain</a></strong>: Assists with chunking and preprocessing the knowledgebase, stored as markdown (.md) files with YAML frontmatter for metadata and sourcing.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong>Knowledgebase Ingestion</strong>: TypeScript scripts leverage NPM to chunk content and send it to Pinecone’s JSON API for indexing.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://obsidian.md/" class="text-primary hover:underline transition-colors">Obsidian</a></strong>: Used to manage and edit the knowledgebase’s markdown files, tagged with YAML frontmatter. We’re exploring AI-driven automation for sourcing, classifying, and tagging content.
+    </li>
+  </ul>
+  <h2 id="prompting" class="text-2xl font-semibold text-foreground mt-6 mb-3 leading-snug">Prompting</h2>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    Effective prompting is critical for our LLM’s performance, especially with the structured knowledgebase.
+  </p>
+  <ul class="list-disc pl-6 mb-4">
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://platform.openai.com/docs/models/gpt-4.5-preview" class="text-primary hover:underline transition-colors">OpenAI GPT-4.5 Preview</a></strong>: Helps optimize prompts for GPT-4.1-mini, though experimentation is key. We store prompts in source control for versioning.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong>Prompt Design</strong>: Prompts are declarative and rely on the knowledgebase’s structured metadata to guide the LLM’s responses accurately.
+    </li>
+  </ul>
+  <h2 id="development-tools" class="text-2xl font-semibold text-foreground mt-6 mb-3 leading-snug">Development Tools</h2>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    We use a modern development stack, heavily augmented by AI coding agents to accelerate development.
+  </p>
+  <ul class="list-disc pl-6 mb-4">
+    <li class="text-foreground mb-2 leading-relaxed"><strong>VS Code</strong>: Our primary IDE for coding and debugging.</li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://www.continue.dev/" class="text-primary hover:underline transition-colors">Continue.Dev</a></strong>: Provides in-IDE AI assistance and chat capabilities.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://www.anthropic.com/claude/sonnet" class="text-primary hover:underline transition-colors">Claude Sonnet 3.7</a></strong>: Primary AI for code generation, with support from xAI’s Grok 3 and Google Gemini 2.5.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://mistral.ai/news/codestral" class="text-primary hover:underline transition-colors">Mistral Codestral</a></strong>: Used for inline code suggestions and fill-in-the-middle (FIM) tasks in the IDE.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed"><strong>GitHub</strong>: Hosts our code repositories and supports version control.</li>
+  </ul>
+  <h2 id="deployment" class="text-2xl font-semibold text-foreground mt-6 mb-3 leading-snug">Deployment</h2>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    The site is deployed on a flexible infrastructure, with SvelteKit’s build time adapter enabling compatibility with multiple platforms. In our case, we are using adapter-node, and the infrastructure stack is:
+  </p>
+  <ul class="list-disc pl-6 mb-4">
+    <li class="text-foreground mb-2 leading-relaxed"><strong>AWS</strong>: Hosts the production environment.</li>
+    <li class="text-foreground mb-2 leading-relaxed"><strong>Ubuntu 24.04</strong>: The server operating system.</li>
+    <li class="text-foreground mb-2 leading-relaxed"><strong>Node.js 22.14</strong>: Powers the backend (exploring Deno as an alternative).</li>
+    <li class="text-foreground mb-2 leading-relaxed"><strong>PM2</strong>: Manages Node.js processes for reliability.</li>
+    <li class="text-foreground mb-2 leading-relaxed"><strong>Nginx</strong>: Acts as a reverse proxy for routing and load balancing.</li>
+    <li class="text-foreground mb-2 leading-relaxed"><strong>Cloudflare</strong>: Provides DNS, CDN, and security services.</li>
+    <li class="text-foreground mb-2 leading-relaxed"><strong>Deployment Flexibility</strong>: SvelteKit’s auto-adapter supports easy deployment to Vercel, Netlify, or Cloudflare Workers.</li>
+  </ul>
+  <h2 id="technologies-under-exploration-review" class="text-2xl font-semibold text-foreground mt-6 mb-3 leading-snug">Technologies Under Exploration / Review</h2>
+  <p class="text-base text-foreground mb-4 leading-relaxed">
+    We’re actively experimenting with additional tools and approaches to enhance our AI and development capabilities.
+  </p>
+  <ul class="list-disc pl-6 mb-4">
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://openwebui.com/" class="text-primary hover:underline transition-colors">OpenWebUI</a></strong>: A potential LLM proxy and playground for testing models and prompts.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://openrouter.ai/" class="text-primary hover:underline transition-colors">OpenRouter</a></strong>: Simplifies access to multiple LLMs and enables inference-time abstraction.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://www.datastax.com/" class="text-primary hover:underline transition-colors">DataStax</a></strong>: For advanced vector indexing and search capabilities.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://postgresml.org/docs/open-source/pgml/guides/vector-database" class="text-primary hover:underline transition-colors">PostgresML</a></strong>: Exploring for vector database integration.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://ollama.com/" class="text-primary hover:underline transition-colors">Ollama</a></strong>: For local model hosting, text-to-speech (TTS), speech-to-text (STT), and integration with tools like LangChain and PyTorch.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://deepgram.com/" class="text-primary hover:underline transition-colors">Deepgram</a></strong>: For speech-to-text (STT) capabilities.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://azure.microsoft.com/en-us/products/ai-services/ai-speech" class="text-primary hover:underline transition-colors">Azure AI Speech</a></strong>: For text-to-speech (TTS) functionality.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://cohere.com/embed" class="text-primary hover:underline transition-colors">Cohere Embeddings</a></strong>: Additional embedding options for semantic search.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://cohere.com/rerank" class="text-primary hover:underline transition-colors">Cohere Reranking</a></strong>: For improving search result relevance.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://github.com/microsoft/markitdown" class="text-primary hover:underline transition-colors">Microsoft Markitdown</a></strong>: Preprocesses source documents into formatted markdown for the knowledgebase.
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://www.letta.com/" class="text-primary hover:underline transition-colors">Letta</a></strong>: Stateful, context length managed agents. Essentially agents with persistent memory, interagent communication, and agent context "memory management".
+    </li>
+    <li class="text-foreground mb-2 leading-relaxed">
+      <strong><a href="https://www.pipecat.ai/" class="text-primary hover:underline transition-colors">Pipecat</a></strong>: Open source framework for voice and multimodal conversational AI.
+    </li>
+  </ul>
 </div>
