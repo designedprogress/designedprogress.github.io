@@ -1,1 +1,38 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>{{ site.title }}</title> <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}"> <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" type="image/x-icon"> <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}" defer></script> </head> <body class="bg-background text-foreground"> {% include header.html %} {{ content }} {% include footer.html %} </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" type="image/x-icon">
+    <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}" defer></script>
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #333333;
+            --primary: #c726c9;
+        }
+        .dark {
+            --background: #1a1a1a;
+            --foreground: #ffffff;
+        }
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+        .hero-phone {
+            width: 50%; /* Reduces the image to 50% of its original size */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dark .hero-phone {
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground">
+    {% include header.html %}
+    {{ content }}
+    {% include footer.html %}
+</body>
+</html>
